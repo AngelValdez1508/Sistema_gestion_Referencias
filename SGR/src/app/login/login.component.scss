@@ -1,0 +1,116 @@
+/* Centrar el formulario y establecer sus dimensiones */
+.contenedor-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 500px; /* Ajustado a 500px */
+  padding: 25px;
+  border-radius: 15px;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border: 1px solid #333;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  text-align: center;
+  transition: transform 0.4s ease-in-out;
+}
+
+.contenedor-login form {
+  width: 100%; /* Hacer que el formulario ocupe todo el ancho del contenedor */
+}
+
+/* Modifica los estilos del encabezado */
+#encabezado {
+  font-size: 30px;
+  font-weight: 600;
+  color: #00bfff;
+  position: relative;
+}
+
+#encabezado::before,
+#encabezado::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0;
+  background-color: #00bfff;
+}
+
+#encabezado::after {
+  animation: pulso 1s linear infinite;
+}
+
+@keyframes pulso {
+  from {
+      transform: scale(0.9);
+      opacity: 1;
+  }
+  to {
+      transform: scale(1.8);
+      opacity: 0;
+  }
+}
+
+/* Ajustes para los campos de entrada */
+.campo {
+  width: 97%;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+.campo-entrada {
+  background-color: #34495e;
+  color: #ecf0f1;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.campo-entrada::placeholder {
+  color: rgba(236, 240, 241, 0.5);
+  font-size: 0.9em;
+}
+
+/* Botones ajustados */
+.boton1, .boton2, .boton3 {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  border: none;
+  color: #ecf0f1;
+  font-size: 16px;
+  background-color: #2980b9;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.boton1:hover, .boton2:hover, .boton3:hover {
+  background-color: #3498db;
+}
+
+.boton3 {
+  background-color: #e74c3c;
+  margin-top: 5px;
+}
+
+.boton3:hover {
+  background-color: #c0392b;
+}
+
+.errorMessage {
+  color: #e74c3c;
+  font-size: 0.9em;
+  margin-top: 10px;
+}

@@ -1,0 +1,66 @@
+<div class="rusuario">
+  <form (ngSubmit)="onSubmit()" class="form">
+    <p class="title">¡Haz tu Registro!</p>
+    <p class="message">Regístrate para tener acceso a la app</p>
+
+    <div class="campo">
+
+      <input
+        class="input"
+        type="text"
+        placeholder="Usuario"
+        id="registroNombre"
+        [(ngModel)]="registroData.NombreUsuario"
+        name="registroname"
+        required
+      />
+    </div>
+
+    <div class="campo">
+
+      <input
+        class="input"
+        type="email"
+        placeholder="Email"
+        id="registroEmail"
+        [(ngModel)]="registroData.Email"
+        name="registroemail"
+        required
+      />
+    </div>
+
+    <div class="campo">
+
+      <input
+        class="input"
+        type="password"
+        placeholder="Password"
+        id="registroPassword"
+        [(ngModel)]="registroData.Password"
+        name="registropassword"
+        required
+      />
+    </div>
+
+    <div class="campo">
+
+      <input
+        class="input"
+        type="password"
+        placeholder="Confirmar contraseña"
+        id="confirmarPassword"
+        [(ngModel)]="registroData.confirmarPassword"
+        name="confirmarpassword"
+        required
+      />
+    </div>
+
+    <p *ngIf="registroError" class="errorMessage">{{ registroError }}</p>
+
+    <button class="submit" type="submit">Registrar</button>
+
+    <p class="signin">
+      ¿Ya tienes una cuenta? <a href="javascript:void(0)" (click)="irALogin()">Inicia Sesión</a>
+    </p>
+  </form>
+</div>

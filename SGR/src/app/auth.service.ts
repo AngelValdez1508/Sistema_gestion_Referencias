@@ -3,17 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-// se define la estructura de los datos del login 
+// Estructura de los datos de login
 interface LoginData {
-  NombreUsuario: string; // Cambié String a string (minúscula)
-  Password: string; // Cambié String a string (minúscula)
+  NombreUsuario: string;
+  Password: string;
 }
 
-// se define la estructura de los datos de registro 
+// Estructura de los datos de registro
 export interface RegisterData {
-  NombreUsuario: string; // Cambié String a string (minúscula)
-  Password: string; // Cambié String a string (minúscula)
-  Email: string; // Cambié String a string (minúscula)
+  NombreUsuario: string;
+  Password: string;
+  Email: string;
 }
 
 @Injectable({
@@ -24,12 +24,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  // Método para el login
   // se envían los datos del login a la API y me debería de devolver la respuesta de la API como un observable
   login(data: LoginData): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/login`, data, { headers });
   }
 
+  // Método para el registro
   // se envían los datos del formulario de registro a la API y me debería devolver el observable 
   register(data: RegisterData): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -51,13 +53,27 @@ export class AuthService {
     }, { headers });
   }
 
-  logout() {
-    // en este método se debería limpiar cualquier dato de autenticación almacenado
-    // para limpiar el token del usuario que se genera cuando se hace login exitoso 
-    // localStorage.removeItem('userToken');
+  // Método para almacenar el token JWT en localStorage
+  guardarToken(token: string) {
+    localStorage.setItem('userToken', token);
+  }
 
-    // o debería de hacer un guard con authenticated para que sea simple 
-    this.router.navigate(['/login']);
+  // Método para obtener el token JWT desde localStorage
+  obtenerToken(): string | null {
+    return localStorage.getItem('userToken');
+  }
+
+  // Método para verificar si el usuario está autenticado
+  isAuthenticated(): boolean {
+    const token = this.obtenerToken();
+    return !!token; // Retorna true si hay un token, false si no
+  }
+
+  // Método para cerrar sesión
+  logout() {
+    localStorage.removeItem('userToken'); // Eliminar el token del almacenamiento local
+    this.router.navigate(['/login']); // Redirigir al usuario a la página de login
   }
 }
+
 

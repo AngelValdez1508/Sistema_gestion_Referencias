@@ -6,49 +6,68 @@
     using SGR_API.Models;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.IdentityModel.Tokens;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Security.Claims;
+    using System.Text;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.Extensions.Configuration;
 
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly SGRContext _context;
+        private readonly IConfiguration _configuration;
 
-        public AuthController(SGRContext context)
+        public AuthController(SGRContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] Usuario loginUser)
         {
-            // Primero buscamos si el usuario existe
             var usuario = _context.Usuarios.FirstOrDefault(u => u.NombreUsuario == loginUser.NombreUsuario);
-
             if (usuario == null)
             {
-                // Si el usuario no existe, devolvemos 404
                 return NotFound(new { message = "Usuario no encontrado" });
             }
 
-            // Si el usuario existe pero la contraseña es incorrecta
             if (usuario.Password != loginUser.Password)
             {
-                // Devolvemos 401 si la contraseña es incorrecta
                 return Unauthorized(new { message = "Contraseña incorrecta" });
             }
 
-            // Si las credenciales son correctas, devolvemos éxito
-            return Ok(new { message = "Login exitoso" });
-        }
+            // Crear el token JWT
+            var claims = new[]
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, usuario.NombreUsuario),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.Role, usuario.Rol)
+        };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: creds);
+
+            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+        }  
 
 
-        [HttpPost("register")]
+    [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Usuario newUser)
         {
             newUser.Estado = true;
             newUser.Rol = "User";
 
-            // Validación de campos específicos
             if (newUser == null)
             {
                 return BadRequest(new { message = "Datos de usuario no proporcionados." });
@@ -66,13 +85,11 @@
                 return BadRequest(new { message = "El email es requerido." });
             }
 
-            // Validación de formato específico para email
             if (!newUser.Email.EndsWith("@gmail.com"))
             {
                 return BadRequest(new { message = "El email debe ser un correo @gmail.com." });
             }
 
-            // Verificación de duplicados
             var existingUser = await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.NombreUsuario == newUser.NombreUsuario || u.Email == newUser.Email);
 
@@ -81,14 +98,12 @@
                 return Conflict(new { message = "El nombre de usuario o el email ya está en uso." });
             }
 
-            // Registro exitoso
             _context.Usuarios.Add(newUser);
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Usuario registrado exitosamente" });
         }
 
-        // Método para verificar si el usuario existe
         [HttpGet("verificar-usuario/{nombreUsuario}")]
         public IActionResult VerificarUsuario(string nombreUsuario)
         {
@@ -101,7 +116,6 @@
             return Ok(new { message = "Usuario encontrado" });
         }
 
-        // Método para restablecer la contraseña
         [HttpPost("restablecer-contrasena")]
         public async Task<IActionResult> RestablecerContrasena([FromBody] RestablecerContrasenaRequest request)
         {
@@ -116,16 +130,21 @@
                 return NotFound(new { message = "Usuario no encontrado" });
             }
 
-            // Aquí puedes cifrar la nueva contraseña antes de almacenarla
-            // usuario.Password = BCrypt.Net.BCrypt.HashPassword(request.NuevaContraseña);
             usuario.Password = request.NuevaContraseña; // Asegúrate de cifrar la contraseña
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Contraseña restablecida exitosamente" });
         }
+
+        // Método protegido con autorización JWT
+        [Authorize]
+        [HttpGet("datos-protegidos")]
+        public IActionResult GetDatosProtegidos()
+        {
+            return Ok(new { message = "Datos accesibles solo con un token válido" });
+        }
     }
 
-    // Clase para la solicitud de restablecimiento de contraseña
     public class RestablecerContrasenaRequest
     {
         public string NombreUsuario { get; set; }

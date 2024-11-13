@@ -1,35 +1,50 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using SGR_API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//definir la politica de CORS
+// Definir la política de CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
         policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
-        );
-
+    );
 });
 
-
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-// Agregar la conexion a la base de datos
+// Agregar la conexión a la base de datos
 builder.Services.AddDbContext<SGRContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("SGRConnection"))
-    );
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SGRConnection"))
+);
+
+// Configuración de autenticación JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+
+// Agregar controladores con vistas
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuración del pipeline de solicitudes HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -38,13 +53,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//aplica COrs
+// Aplicar CORS
 app.UseCors("AllowAngularApp");
+
+// Middleware de autenticación y autorización
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();
 

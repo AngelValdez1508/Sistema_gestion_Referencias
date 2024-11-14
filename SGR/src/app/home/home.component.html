@@ -1,49 +1,39 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    text-align: center;
-}
-.container {
-    width: 100%;
-    max-width: 900px;
-    margin-top: -30px;
-}
-h1 {
-    font-size: 30px;
-    letter-spacing: 2px;
-    white-space: nowrap;
-}
-p { margin-bottom: 20px; }
-button {
-    background-color: #555555;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-button:hover { background-color: #333333; }
-</style>
-<title>Sistema Gestor de Referencias</title>
-</head>
-<body>
 <div class="container">
-    <h1>Bienvenido al sistema Gestor de Referencias</h1>
-    <p>Se ha iniciado sesión correctamente</p>
-    <button (click)="logout()">Cerrar Sesión</button>
-</div>
-</body>
-</html>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+      <button class="add-button">+ Agregar</button>
+      <ul class="menu-list">
+        <li>Inicio</li>
+        <li>Subir PDF</li>
+        <li>Mis referencias</li>
+        <li>Destacados</li>
+        <li>Temas</li>
+        <li>Lenguaje</li>
+      </ul>
+    </div>
+  
+    <!-- Contenido principal -->
+    <div class="content">
+      <header class="header">
+        <div class="logo">Gestión de referencias</div>
+        <div class="search-bar">
+          <input type="text" placeholder="Buscar" />
+        </div>
+        <div class="account-info">
+          <span>Cuenta</span>
+          <div class="avatar"></div>
+        </div>
+      </header>
+  
+      <main class="main-content">
+        <h2>Bienvenido <span class="username">Nombre</span></h2>
+        <div class="buttons-grid">
+          <button class="option-button">+ Subir PDF</button>
+          <button class="option-button">Referencias</button>
+          <button class="option-button">Exportar</button>
+          <button class="option-button">Destacados</button>
+        </div>
+      </main>
+    </div>
+  </div>
+  

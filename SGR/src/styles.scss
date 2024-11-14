@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 // Contenedor de pantalla completa para centrar el formulario
-body, html {
+/*body, html {
     height: 100%;
     margin: 0;
     //display: flex;
@@ -8,7 +8,9 @@ body, html {
     //align-items: center;
     //background: linear-gradient(to bottom, #58c7e9, #504f4f); // Fondo de pantalla
     //-Angel- quité esta wea porque se aplicaba a todo el proyecto y el home se veía culero, así que lo pasé a el login directamente
-  }
+  }*/
+
+
   
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,10 +1,10 @@
 <div class="container">
     <!-- Barra lateral -->
     <div class="sidebar">
-      <button class="add-button" (click)="navegarSubirPDF()">+ Agregar</button>
+      <button class="add-button">+ Agregar</button>
       <ul class="menu-list">
-        <li>Inicio</li>
-        <li (click)="navegarSubirPDF()">Subir PDF</li>
+        <li (click)="navegarHome()">Inicio</li>
+        <li>Subir PDF</li>
         <li (click)="navegarMisReferencias()">Mis referencias</li>
         <li>Destacados</li>
         <li>Temas</li>
@@ -26,13 +26,13 @@
       </header>
   
       <main class="main-content">
-        <h2>Bienvenido <span class="username">Nombre</span></h2>
-        <div class="buttons-grid">
-          <button class="option-button" (click)="navegarSubirPDF()">+ Subir PDF</button>
-          <button class="option-button">Referencias</button>
-          <button class="option-button">Exportar</button>
-          <button class="option-button">Destacados</button>
-        </div>
+        <div class="subir-pdf-container">
+            <h2>Subir un archivo PDF</h2>
+            <div class="upload-box">
+              <input type="file" id="file-upload" accept="application/pdf" />
+              <label for="file-upload" class="upload-button">Subir archivo</label>
+            </div>
+          </div>
       </main>
     </div>
   </div>

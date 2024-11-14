@@ -1,0 +1,61 @@
+  <div class="container">
+    <!-- Barra lateral -->
+    <div class="sidebar">
+      <button class="add-button" (click)="navegarSubirPDF()">+ Agregar</button>
+      <ul class="menu-list">
+        <li (click)="navegarHome()">Inicio</li>
+        <li (click)="navegarSubirPDF()">Subir PDF</li>
+        <li>Mis referencias</li>
+        <li>Destacados</li>
+        <li>Temas</li>
+        <li>Lenguaje</li>
+      </ul>
+    </div>
+  
+    <!-- Contenido principal -->
+    <div class="content">
+      <header class="header">
+        <div class="logo">Gestión de referencias</div>
+        <div class="search-bar">
+          <input type="text" placeholder="Buscar" />
+        </div>
+        <div class="account-info">
+          <span>Cuenta</span>
+          <div class="avatar"></div>
+        </div>
+      </header>
+  
+      <main class="main-content">
+        <div class="mis-referencias-container">
+            <!-- Barra de herramientas -->
+            <div class="toolbar">
+              <input type="checkbox" id="select-all" />
+              <label for="select-all">Seleccionar</label>
+              <button class="toolbar-button">★ Destacar</button>
+              <button class="toolbar-button">🗑 Eliminar</button>
+            </div>
+          
+            <!-- Tabla de referencias -->
+            <table class="references-table">
+              <thead>
+                <tr>
+                  <th>Autores ▼</th>
+                  <th>Título ▼</th>
+                  <th>Año ▼</th>
+                  <th>Fecha ▼</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Johanness Donner</td>
+                  <td>Advances in Artificial Intelligence for Autonomous Vehicles</td>
+                  <td>2022</td>
+                  <td>29/01/2024</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </main>
+    </div>
+  </div>
+  

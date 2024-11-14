@@ -1,0 +1,164 @@
+// Estilo general para reutilizar los mismos estilos que el componente Home
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .sidebar {
+    width: 250px;
+    padding: 16px;
+    background-color: #fff;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  
+    .add-button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  
+    .menu-list {
+      list-style-type: none;
+      width: 100%;
+  
+      li {
+        padding: 10px 0;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+  }
+  
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
+  
+      .logo {
+        font-weight: bold;
+        font-size: 24px;
+      }
+  
+      .search-bar input {
+        padding: 8px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        width: 200px;
+      }
+  
+      .account-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+  
+        .avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: #1976d2;
+        }
+      }
+    }
+  
+    .main-content {
+      flex-grow: 1;
+      padding: 20px;
+  
+      // Estilo específico para la tabla y la barra de herramientas de referencias
+      .toolbar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+        input[type='checkbox'] {
+          margin-right: 10px;
+        }
+  
+        label {
+          font-size: 16px;
+          margin-right: 20px;
+        }
+  
+        .toolbar-button {
+          background-color: #1976d2;
+          color: white;
+          padding: 8px 15px;
+          border: none;
+          border-radius: 4px;
+          margin-right: 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #155a9f;
+          }
+        }
+      }
+  
+      .references-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+        thead {
+          background-color: #f5f5f5;
+  
+          th {
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            cursor: pointer;
+  
+            &:hover {
+              background-color: #e0e0e0;
+            }
+          }
+        }
+  
+        tbody {
+          tr {
+            border-bottom: 1px solid #e0e0e0;
+  
+            &:hover {
+              background-color: #f9f9f9;
+            }
+  
+            td {
+              padding: 15px;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+  

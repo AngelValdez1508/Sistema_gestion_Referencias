@@ -8,6 +8,8 @@ import { HomeComponent } from './app/home/home.component';
 import { RegistroUsuarioComponent } from './app/registro-usuario/registro-usuario.component';
 import { OlvidePasswordComponent } from './app/olvide-password/olvide-password.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SubirPDFComponent } from './app/subir-pdf/subir-pdf.component';
+import { MisReferenciasComponent } from './app/mis-referencias/mis-referencias.component';
 
 
 const routes: Route[] = [
@@ -15,7 +17,9 @@ const routes: Route[] = [
   { path: 'login', component: LoginComponent},
   { path: 'home', component: HomeComponent}, //aun no hago el componente home
   { path: 'registro', component: RegistroUsuarioComponent},
-  { path: 'olvide', component: OlvidePasswordComponent}
+  { path: 'olvide', component: OlvidePasswordComponent},
+  { path: 'subir-pdf', component: SubirPDFComponent},
+  { path: 'mis-referencias', component: MisReferenciasComponent}
 
 ]
 

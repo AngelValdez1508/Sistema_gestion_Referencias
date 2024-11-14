@@ -10,3 +10,5 @@ body, html {
     //-Angel- quité esta wea porque se aplicaba a todo el proyecto y el home se veía culero, así que lo pasé a el login directamente
   }
   
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -7,6 +7,7 @@ import { importProvidersFrom } from '@angular/core';
 import { HomeComponent } from './app/home/home.component';
 import { RegistroUsuarioComponent } from './app/registro-usuario/registro-usuario.component';
 import { OlvidePasswordComponent } from './app/olvide-password/olvide-password.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 const routes: Route[] = [
@@ -20,6 +21,6 @@ const routes: Route[] = [
 
 
 bootstrapApplication(AppComponent,{
-    providers: [provideRouter(routes), importProvidersFrom(HttpClientModule)]
+    providers: [provideRouter(routes), importProvidersFrom(HttpClientModule), provideAnimationsAsync()]
 } )
   

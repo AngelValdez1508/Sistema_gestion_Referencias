@@ -6,7 +6,5 @@ import { SubirPDFComponent } from './subir-pdf/subir-pdf.component';
 import { MisReferenciasComponent } from './mis-referencias/mis-referencias.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent},
-    { path: 'subir-pdf', component: SubirPDFComponent},
-    { path: 'mis-referencias', component: MisReferenciasComponent}
+    
 ];
